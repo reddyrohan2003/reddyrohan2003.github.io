@@ -191,30 +191,33 @@
 
         /* Theme Toggle */
         .theme-toggle {
-            width: 40px;
-            height: 22px;
-            border-radius: 11px;
-            background: var(--border);
-            border: 1px solid var(--fg-muted);
-            position: relative;
+            background: transparent;
+            border: none;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--fg);
             transition: var(--transition-theme);
         }
 
-        .theme-toggle::after {
-            content: "";
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--accent);
-            top: 2px;
-            left: 2px;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        .theme-toggle svg {
+            width: 22px;
+            height: 22px;
+            transition: transform 0.3s ease, color 0.3s ease;
         }
 
-        [data-theme="light"] .theme-toggle::after {
-            transform: translateX(18px);
+        .theme-toggle:hover svg {
+            transform: rotate(15deg) scale(1.1);
+            color: var(--accent);
         }
+
+        .icon-sun { display: none; }
+        .icon-moon { display: block; }
+        
+        [data-theme="light"] .icon-sun { display: block; }
+        [data-theme="light"] .icon-moon { display: none; }
 
         @media (max-width: 768px) {
             .header__nav { display: none; }
@@ -960,6 +963,67 @@
         }
 
         /* ============================================
+           PRELOADER
+           ============================================ */
+        .preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg);
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .preloader.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader__name {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            color: var(--fg);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+            overflow: hidden;
+            padding: 10px 20px;
+        }
+
+        .preloader__name span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+            animation: text-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .preloader__name::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            animation: line-reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+        }
+
+        @keyframes text-reveal {
+            0% { opacity: 0; transform: translateY(100%); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes line-reveal {
+            0% { transform: scaleX(0); }
+            100% { transform: scaleX(1); }
+        }
+
+        /* ============================================
            REDUCED MOTION
            ============================================ */
         @media (prefers-reduced-motion: reduce) {
@@ -972,6 +1036,7 @@
             .cursor { display: none; }
             body, a, button { cursor: auto; }
             .reveal { opacity: 1; transform: none; }
+            .preloader { display: none !important; }
         }
     </style>
 </head>
@@ -982,6 +1047,11 @@
         <h1>Rohan Reddy — AI Analyst & Prompt Engineer</h1>
         <p>Professional portfolio of Rohan Reddy, evaluating and optimizing AI outputs to bridge the gap between raw data and actionable human insights.</p>
     </section>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader__name"><span>Rohan Reddy</span></div>
+    </div>
 
     <!-- Custom Cursor -->
     <div class="cursor" id="cursor" aria-hidden="true"></div>
@@ -997,7 +1067,16 @@
                     <li><a href="#journey">Journey</a></li>
                     <li><a href="#contact">Connect</a></li>
                 </ul>
-                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle color theme" title="Switch theme"></button>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle color theme" title="Switch theme">
+                    <!-- Moon Icon -->
+                    <svg class="icon-moon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                    </svg>
+                    <!-- Sun Icon -->
+                    <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                    </svg>
+                </button>
             </div>
         </div>
     </header>
@@ -1019,7 +1098,10 @@
                     </p>
                     <div class="hero__actions reveal">
                         <a href="#contact" class="btn-primary">Get in touch</a>
-                        <a href="./Rohan-Reddy-Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Resume ↗</a>
+                        <a href="./Rohan-Reddy-Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="display:inline-flex; align-items:center; gap:8px;">
+                            Resume 
+                            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        </a>
                     </div>
                 </div>
 
@@ -1304,6 +1386,16 @@
 
     <!-- ========== SCRIPTS ========== -->
     <script>
+        // Preloader removal
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            if(preloader) {
+                setTimeout(() => {
+                    preloader.classList.add('is-hidden');
+                }, 2000); // Remove after animations
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
 
             // --- Custom Cursor ---
