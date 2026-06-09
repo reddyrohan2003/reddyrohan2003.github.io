@@ -1361,7 +1361,7 @@
                         B.E. Computer Science graduate specialized in prompt engineering, LLM performance auditing, safety compliance, and SQL analytics.
                     </p>
                     <div class="hero__actions reveal">
-                        <a href="#contact" class="btn-primary">Get in touch</a>
+                        <button class="btn-primary js-modal-trigger">Get in touch</button>
                         <a href="./Rohan-Reddy-Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="display:inline-flex; align-items:center; gap:8px;">
                             Resume 
                             <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
@@ -1380,7 +1380,7 @@
                                 <textPath href="#circlePath">AVAILABLE FOR WORK ◆ OPEN TO PROJECTS ◆ </textPath>
                             </text>
                         </svg>
-                        <div class="rotating-badge__center" id="open-to-work-trigger" tabindex="0" role="button" aria-label="Open contact form" style="cursor: none;">
+                        <div class="rotating-badge__center js-modal-trigger" id="open-to-work-trigger" tabindex="0" role="button" aria-label="Open contact form" style="cursor: none;">
                             <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M7 17L17 7M17 7H7M17 7V17"/>
                             </svg>
@@ -1764,13 +1764,15 @@
             }
 
             // --- Expandable Modal Logic ---
-            const modalTrigger = document.getElementById('open-to-work-trigger');
+            const modalTriggers = document.querySelectorAll('.js-modal-trigger');
             const expandableModal = document.getElementById('expandable-modal');
             const modalCloseBtn = document.getElementById('modal-close');
+            let lastClickedTrigger = null;
 
-            if (modalTrigger && expandableModal && modalCloseBtn) {
-                const openModal = () => {
-                    const rect = modalTrigger.getBoundingClientRect();
+            if (modalTriggers.length > 0 && expandableModal && modalCloseBtn) {
+                const openModal = (e) => {
+                    lastClickedTrigger = e.currentTarget;
+                    const rect = lastClickedTrigger.getBoundingClientRect();
                     const x = rect.left + rect.width / 2;
                     const y = rect.top + rect.height / 2;
                     
@@ -1786,12 +1788,14 @@
                 };
 
                 const closeModal = () => {
-                    const rect = modalTrigger.getBoundingClientRect();
-                    const x = rect.left + rect.width / 2;
-                    const y = rect.top + rect.height / 2;
+                    if (lastClickedTrigger) {
+                        const rect = lastClickedTrigger.getBoundingClientRect();
+                        const x = rect.left + rect.width / 2;
+                        const y = rect.top + rect.height / 2;
 
-                    expandableModal.style.setProperty('--clip-x', `${x}px`);
-                    expandableModal.style.setProperty('--clip-y', `${y}px`);
+                        expandableModal.style.setProperty('--clip-x', `${x}px`);
+                        expandableModal.style.setProperty('--clip-y', `${y}px`);
+                    }
                     
                     expandableModal.classList.remove('is-open');
 
@@ -1801,30 +1805,37 @@
                     }, 700); // Wait for CSS transition
                 };
 
-                modalTrigger.addEventListener('click', openModal);
-                modalCloseBtn.addEventListener('click', closeModal);
-
-                // Add keyboard accessibility
-                modalTrigger.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        openModal();
-                    }
+                modalTriggers.forEach(trigger => {
+                    trigger.addEventListener('click', openModal);
+                    trigger.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            openModal(e);
+                        }
+                    });
                 });
+                
+                modalCloseBtn.addEventListener('click', closeModal);
 
 
                 // Optional: Hover support for modal interaction elements to expand cursor
                 if (window.innerWidth > 768) {
-                    modalTrigger.addEventListener('mouseenter', () => cursor && cursor.classList.add('is-hover'));
-                    modalTrigger.addEventListener('mouseleave', () => cursor && cursor.classList.remove('is-hover'));
+                    modalTriggers.forEach(trigger => {
+                        trigger.addEventListener('mouseenter', () => cursor && cursor.classList.add('is-hover'));
+                        trigger.addEventListener('mouseleave', () => cursor && cursor.classList.remove('is-hover'));
+                    });
+                    
                     modalCloseBtn.addEventListener('mouseenter', () => cursor && cursor.classList.add('is-hover'));
                     modalCloseBtn.addEventListener('mouseleave', () => cursor && cursor.classList.remove('is-hover'));
                     
-                    const formInputs = contactForm.querySelectorAll('input, select, textarea, button');
-                    formInputs.forEach(el => {
-                        el.addEventListener('mouseenter', () => cursor && cursor.classList.add('is-hover'));
-                        el.addEventListener('mouseleave', () => cursor && cursor.classList.remove('is-hover'));
-                    });
+                    const contactForm = document.getElementById('contact-form');
+                    if (contactForm) {
+                        const formInputs = contactForm.querySelectorAll('input, select, textarea, button');
+                        formInputs.forEach(el => {
+                            el.addEventListener('mouseenter', () => cursor && cursor.classList.add('is-hover'));
+                            el.addEventListener('mouseleave', () => cursor && cursor.classList.remove('is-hover'));
+                        });
+                    }
                 }
             }
 
