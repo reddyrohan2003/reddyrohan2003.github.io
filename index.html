@@ -1024,6 +1024,221 @@
         }
 
         /* ============================================
+           EXPANDABLE MODAL
+           ============================================ */
+        .expandable-modal {
+            --clip-x: 50%;
+            --clip-y: 50%;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: var(--bg);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            clip-path: circle(0px at var(--clip-x) var(--clip-y));
+            transition: clip-path 0.7s cubic-bezier(0.77, 0, 0.175, 1);
+            overflow-y: auto;
+        }
+
+        .expandable-modal.is-open {
+            pointer-events: auto;
+            clip-path: circle(150% at var(--clip-x) var(--clip-y));
+        }
+
+        .expandable-modal__inner {
+            width: 100%;
+            max-width: 1100px;
+            margin: auto;
+            padding: clamp(20px, 4vw, 64px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(32px, 6vw, 64px);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s;
+        }
+
+        .expandable-modal.is-open .expandable-modal__inner {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .expandable-modal__close {
+            position: absolute;
+            top: 32px; right: 32px;
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: var(--bg-raised);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--fg);
+            cursor: none;
+            transition: all 0.3s ease;
+            z-index: 10001;
+        }
+
+        .expandable-modal__close:hover {
+            background: var(--border);
+            transform: scale(1.05);
+        }
+
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 32px;
+            text-transform: uppercase;
+        }
+
+        .modal-feature {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .modal-feature__icon {
+            flex-shrink: 0;
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            background: var(--accent-dim);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-feature__text {
+            font-size: 1rem;
+            color: var(--fg);
+            line-height: 1.5;
+            padding-top: 12px;
+        }
+
+        .modal-testimonial {
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+        }
+
+        .modal-testimonial__quote {
+            font-size: 1.1rem;
+            font-family: var(--font-editorial);
+            font-style: italic;
+            color: var(--fg);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .modal-testimonial__author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .modal-testimonial__avatar {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: var(--border);
+            overflow: hidden;
+        }
+
+        .modal-testimonial__info h5 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--fg);
+        }
+
+        .modal-testimonial__info span {
+            font-size: 0.8rem;
+            color: var(--fg-dim);
+        }
+
+        /* Form Styles */
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .modal-form label {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--fg-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .modal-form input,
+        .modal-form select,
+        .modal-form textarea {
+            width: 100%;
+            background: var(--bg-raised);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 14px 16px;
+            color: var(--fg);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            outline: none;
+            cursor: none;
+        }
+
+        .modal-form input:focus,
+        .modal-form select:focus,
+        .modal-form textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent-dim);
+        }
+
+        .modal-form__row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .modal-form__btn {
+            background: var(--fg);
+            color: var(--bg);
+            border: none;
+            padding: 16px;
+            border-radius: 32px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-top: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .modal-form__btn:hover {
+            transform: translateY(-2px);
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        @media (max-width: 900px) {
+            .expandable-modal__inner {
+                grid-template-columns: 1fr;
+                padding-top: 80px;
+            }
+            .expandable-modal {
+                align-items: flex-start;
+            }
+            .modal-form__row {
+                flex-direction: column;
+            }
+        }
+
+        /* ============================================
            REDUCED MOTION
            ============================================ */
         @media (prefers-reduced-motion: reduce) {
@@ -1051,6 +1266,85 @@
     <!-- Preloader -->
     <div class="preloader" id="preloader">
         <div class="preloader__name"><span>Rohan Reddy</span></div>
+    </div>
+
+    <!-- Expandable Modal -->
+    <div class="expandable-modal" id="expandable-modal" aria-hidden="true" role="dialog">
+        <button class="expandable-modal__close" id="modal-close" aria-label="Close modal">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+        <div class="expandable-modal__inner">
+            <!-- Left Column -->
+            <div class="modal-content">
+                <h2 class="modal-title">Let's Work Together</h2>
+                
+                <div class="modal-feature">
+                    <div class="modal-feature__icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    </div>
+                    <p class="modal-feature__text">I am currently accepting new clients and full-time opportunities.</p>
+                </div>
+                
+                <div class="modal-feature">
+                    <div class="modal-feature__icon">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <p class="modal-feature__text">Specializing in prompt engineering, AI evaluation, and safety guardrails.</p>
+                </div>
+
+                <div class="modal-testimonial">
+                    <p class="modal-testimonial__quote">"Rohan's ability to bridge raw data with human intent has transformed our workflows."</p>
+                    <div class="modal-testimonial__author">
+                        <div class="modal-testimonial__avatar">
+                            <!-- Placeholder SVG avatar -->
+                            <svg viewBox="0 0 100 100" fill="var(--fg-muted)"><circle cx="50" cy="50" r="50"/></svg>
+                        </div>
+                        <div class="modal-testimonial__info">
+                            <h5>Project Manager</h5>
+                            <span>Tech Corp</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="modal-form-wrapper">
+                <form class="modal-form" id="contact-form">
+                    <div>
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Jane Doe">
+                    </div>
+                    <div>
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required placeholder="jane@example.com">
+                    </div>
+                    <div class="modal-form__row">
+                        <div style="flex: 2;">
+                            <label for="project-type">Project Type</label>
+                            <select id="project-type" name="project-type">
+                                <option value="ai-eval">AI Evaluation & Safety</option>
+                                <option value="prompt">Prompt Engineering</option>
+                                <option value="data">Data Analytics</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="timeline">Timeline</label>
+                            <select id="timeline" name="timeline">
+                                <option value="immediate">Immediate</option>
+                                <option value="1-3">1-3 Months</option>
+                                <option value="flexible">Flexible</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="details">Project Details</label>
+                        <textarea id="details" name="details" rows="4" placeholder="Tell me about what you're building..."></textarea>
+                    </div>
+                    <button type="submit" class="modal-form__btn">Send Message</button>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- Custom Cursor -->
@@ -1116,7 +1410,7 @@
                                 <textPath href="#circlePath">AVAILABLE FOR WORK ◆ OPEN TO PROJECTS ◆ </textPath>
                             </text>
                         </svg>
-                        <div class="rotating-badge__center">
+                        <div class="rotating-badge__center" id="open-to-work-trigger" tabindex="0" role="button" aria-label="Open contact form" style="cursor: none;">
                             <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M7 17L17 7M17 7H7M17 7V17"/>
                             </svg>
@@ -1497,6 +1791,88 @@
                     rev.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
                     observer.observe(rev);
                 });
+            }
+
+            // --- Expandable Modal Logic ---
+            const modalTrigger = document.getElementById('open-to-work-trigger');
+            const expandableModal = document.getElementById('expandable-modal');
+            const modalCloseBtn = document.getElementById('modal-close');
+
+            if (modalTrigger && expandableModal && modalCloseBtn) {
+                const openModal = () => {
+                    const rect = modalTrigger.getBoundingClientRect();
+                    const x = rect.left + rect.width / 2;
+                    const y = rect.top + rect.height / 2;
+                    
+                    expandableModal.style.setProperty('--clip-x', `${x}px`);
+                    expandableModal.style.setProperty('--clip-y', `${y}px`);
+                    
+                    document.body.style.overflow = 'hidden';
+                    expandableModal.setAttribute('aria-hidden', 'false');
+
+                    requestAnimationFrame(() => {
+                        expandableModal.classList.add('is-open');
+                    });
+                };
+
+                const closeModal = () => {
+                    const rect = modalTrigger.getBoundingClientRect();
+                    const x = rect.left + rect.width / 2;
+                    const y = rect.top + rect.height / 2;
+
+                    expandableModal.style.setProperty('--clip-x', `${x}px`);
+                    expandableModal.style.setProperty('--clip-y', `${y}px`);
+                    
+                    expandableModal.classList.remove('is-open');
+
+                    setTimeout(() => {
+                        document.body.style.overflow = '';
+                        expandableModal.setAttribute('aria-hidden', 'true');
+                    }, 700); // Wait for CSS transition
+                };
+
+                modalTrigger.addEventListener('click', openModal);
+                modalCloseBtn.addEventListener('click', closeModal);
+
+                // Add keyboard accessibility
+                modalTrigger.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openModal();
+                    }
+                });
+
+                // Form Submit Dummy Handler
+                const contactForm = document.getElementById('contact-form');
+                if (contactForm) {
+                    contactForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        const btn = contactForm.querySelector('.modal-form__btn');
+                        const originalText = btn.textContent;
+                        btn.textContent = 'Message Sent!';
+                        btn.style.background = 'var(--accent)';
+                        setTimeout(() => {
+                            btn.textContent = originalText;
+                            btn.style.background = '';
+                            closeModal();
+                            contactForm.reset();
+                        }, 2000);
+                    });
+                }
+                
+                // Optional: Hover support for modal interaction elements to expand cursor
+                if (window.innerWidth > 768) {
+                    modalTrigger.addEventListener('mouseenter', () => cursor && cursor.classList.add('is-hover'));
+                    modalTrigger.addEventListener('mouseleave', () => cursor && cursor.classList.remove('is-hover'));
+                    modalCloseBtn.addEventListener('mouseenter', () => cursor && cursor.classList.add('is-hover'));
+                    modalCloseBtn.addEventListener('mouseleave', () => cursor && cursor.classList.remove('is-hover'));
+                    
+                    const formInputs = contactForm.querySelectorAll('input, select, textarea, button');
+                    formInputs.forEach(el => {
+                        el.addEventListener('mouseenter', () => cursor && cursor.classList.add('is-hover'));
+                        el.addEventListener('mouseleave', () => cursor && cursor.classList.remove('is-hover'));
+                    });
+                }
             }
 
         });
