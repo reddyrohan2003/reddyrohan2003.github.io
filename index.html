@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rohan Reddy — AI Analyst</title>
-    <meta name="description" content="Professional portfolio of Rohan Reddy, AI Analyst & Prompt Engineer. Specializing in LLM evaluation, safety guardrails, and data analytics.">
+    <title>Rohan Reddy — AI Analyst & Prompt Engineer</title>
+    <meta name="description" content="Portfolio of Rohan Reddy. AI Analyst & Prompt Engineer specializing in LLM evaluation, safety guardrails, and data analytics.">
     <meta property="og:title" content="Rohan Reddy — AI Analyst Portfolio">
     <meta property="og:description" content="Evaluating and optimizing AI outputs to bridge the gap between raw data and actionable human insights.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://reddyrohan2003.github.io">
 
-    <!-- Fonts: Plus Jakarta Sans for Display Headings, Inter for Body Text -->
+    <!-- Fonts: Syne (Display), Space Grotesk (Body), DM Serif Display (Editorial Accent) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- GSAP for scroll trigger reveals -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -21,38 +21,49 @@
 
     <style>
         /* ============================================
-           DESIGN TOKENS & SYSTEM VARIABLES (SAAS)
+           DESIGN SYSTEM: EDITORIAL BRUTALIST × WARM MINIMALISM
            ============================================ */
+
+        /* --- Theme A: Dark Mode (Tech Brutalist) --- */
+        [data-theme="dark"] {
+            --bg: #0c0c0c;
+            --bg-raised: #141414;
+            --fg: #e8e4dd;
+            --fg-dim: #807c75;
+            --fg-muted: #4a4744;
+            --accent: #c8ff00;
+            --accent-dim: rgba(200, 255, 0, 0.12);
+            --accent-shadow: rgba(200, 255, 0, 0.25);
+            --border: #222222;
+            --border-secondary: #2e2e2e;
+            --nav-backdrop: rgba(12, 12, 12, 0.85);
+        }
+
+        /* --- Theme B: Light Mode (Editorial Gallery) --- */
+        [data-theme="light"] {
+            --bg: #f4f0e8;
+            --bg-raised: #eae5db;
+            --fg: #0c0c0c;
+            --fg-dim: #55524e;
+            --fg-muted: #9b968e;
+            --accent: #0500ff;
+            --accent-dim: rgba(5, 0, 255, 0.08);
+            --accent-shadow: rgba(5, 0, 255, 0.20);
+            --border: #d8d2c6;
+            --border-secondary: #e4ded2;
+            --nav-backdrop: rgba(244, 240, 232, 0.85);
+        }
+
+        /* --- Font Tokens --- */
         :root {
-            --bg: #030712; /* Slate 950 */
-            --card-bg: rgba(17, 24, 39, 0.6); /* Translucent Slate 900 */
-            --card-bg-solid: #111827;
-            --text-primary: #f8fafc; /* Slate 50 */
-            --text-secondary: #94a3b8; /* Slate 400 */
-            --text-muted: #64748b; /* Slate 500 */
-            --border: rgba(255, 255, 255, 0.05);
-            --border-hover: rgba(255, 255, 255, 0.12);
-            --accent: #6366f1; /* Electric Indigo */
-            --accent-glow: rgba(99, 102, 241, 0.15);
-            --teal: #06b6d4; /* Teal */
-            --teal-glow: rgba(6, 182, 212, 0.15);
-            
-            --radius-card: 16px;
-            --radius-pill: 9999px;
-            --font-display: 'Plus Jakarta Sans', sans-serif;
-            --font-body: 'Inter', sans-serif;
-            
-            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            
-            --card-shadow: 0 4px 30px -10px rgba(0, 0, 0, 0.4), 0 2px 10px -5px rgba(0, 0, 0, 0.2);
-            --card-hover-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.15), 0 8px 20px -8px rgba(0, 0, 0, 0.4);
-            
-            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
-            --grid-line-color: rgba(255, 255, 255, 0.015);
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+            --font-editorial: 'DM Serif Display', serif;
+            --transition-theme: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
         }
 
         /* ============================================
-           BASE STYLES & NATIVE SCROLL
+           BASE RESET & NATIVE SCROLL
            ============================================ */
         *, *::before, *::after {
             margin: 0;
@@ -60,7 +71,6 @@
             box-sizing: border-box;
         }
 
-        /* 100% native smooth scrolling - resolved scroll freezes */
         html {
             scroll-behavior: smooth;
             background-color: var(--bg);
@@ -68,122 +78,69 @@
 
         body {
             font-family: var(--font-body);
-            color: var(--text-primary);
+            color: var(--fg);
             background-color: var(--bg);
             overflow-x: hidden;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: var(--transition-theme);
+            cursor: none;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px;
-            position: relative;
-            z-index: 2;
-        }
+        a { color: inherit; text-decoration: none; cursor: none; }
+        button { background: none; border: none; cursor: none; font-family: inherit; }
+        img { max-width: 100%; display: block; }
 
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-        }
-
-        /* Ambient Glow spots */
-        .ambient-light {
-            position: fixed;
-            width: 700px;
-            height: 700px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.07) 0%, transparent 70%);
-            top: -200px;
-            right: -200px;
-            z-index: 0;
-            pointer-events: none;
-            filter: blur(80px);
-        }
-
-        .ambient-light--2 {
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.05) 0%, transparent 70%);
-            bottom: -100px;
-            left: -200px;
-            top: auto;
-            right: auto;
-            filter: blur(60px);
-        }
-
-        /* Fine background grid overlay */
-        .grid-matrix {
-            position: fixed;
-            inset: 0;
-            background-size: 40px 40px;
-            background-image: 
-                linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
-                linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* Section dividers */
-        .section {
-            padding: 100px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        /* Headings */
-        .section-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-family: var(--font-display);
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--teal);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            margin-bottom: 16px;
-        }
-
-        .section-tag::before {
-            content: "";
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: var(--teal);
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            color: var(--text-primary);
-            margin-bottom: 48px;
-        }
-
-        .section-title span {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Focus outline */
-        a:focus-visible,
-        button:focus-visible {
+        a:focus-visible, button:focus-visible {
             outline: 2px solid var(--accent);
             outline-offset: 4px;
         }
 
+        .sr-only {
+            position: absolute; width: 1px; height: 1px;
+            padding: 0; margin: -1px; overflow: hidden;
+            clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+        }
+
         /* ============================================
-           HEADER NAVIGATION BAR
+           CUSTOM CURSOR
+           ============================================ */
+        .cursor {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--fg);
+            mix-blend-mode: difference;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                        height 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cursor.is-hover {
+            width: 56px;
+            height: 56px;
+        }
+
+        @media (max-width: 768px) {
+            .cursor { display: none; }
+            body, a, button { cursor: auto; }
+        }
+
+        /* ============================================
+           LAYOUT CONTAINER
+           ============================================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(20px, 4vw, 48px);
+        }
+
+        /* ============================================
+           HEADER / NAVIGATION
            ============================================ */
         .header {
             position: fixed;
@@ -191,708 +148,815 @@
             left: 0;
             width: 100%;
             z-index: 100;
-            background: rgba(3, 7, 18, 0.75);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: var(--nav-backdrop);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
-            padding: 16px 40px;
+            transition: var(--transition-theme);
+        }
+
+        .header__inner {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 18px 0;
         }
 
         .header__logo {
             font-family: var(--font-display);
             font-weight: 800;
-            font-size: 1.15rem;
-            letter-spacing: -0.02em;
-            color: var(--text-primary);
-        }
-
-        .header__logo span {
-            color: var(--accent);
+            font-size: 1.1rem;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
         }
 
         .header__nav {
             display: flex;
-            gap: 32px;
+            align-items: center;
+            gap: 36px;
             list-style: none;
         }
 
-        @media (max-width: 768px) {
-            .header__nav {
-                display: none;
-            }
-        }
-
         .header__nav a {
-            font-size: 0.85rem;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
             font-weight: 500;
-            color: var(--text-secondary);
-            transition: var(--transition);
+            color: var(--fg-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: color 0.3s ease;
         }
 
-        .header__nav a:hover {
-            color: var(--text-primary);
+        .header__nav a:hover { color: var(--fg); }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            width: 40px;
+            height: 22px;
+            border-radius: 11px;
+            background: var(--border);
+            border: 1px solid var(--fg-muted);
+            position: relative;
+            transition: var(--transition-theme);
         }
 
-        /* Clean SaaS buttons */
-        .saas-btn {
-            background: var(--text-primary);
-            color: #000;
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 10px 20px;
-            border-radius: var(--radius-pill);
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
+        .theme-toggle::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .saas-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
+        [data-theme="light"] .theme-toggle::after {
+            transform: translateX(18px);
         }
 
-        .saas-btn--secondary {
-            background: var(--card-bg);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-        }
-
-        .saas-btn--secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--border-hover);
+        @media (max-width: 768px) {
+            .header__nav { display: none; }
         }
 
         /* ============================================
            HERO SECTION
            ============================================ */
         .hero {
-            padding: 180px 0 100px;
+            padding: 180px 0 80px;
             border-bottom: 1px solid var(--border);
+            position: relative;
+            transition: var(--transition-theme);
         }
 
-        .hero__container {
+        .hero__grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 64px;
-            align-items: center;
+            grid-template-columns: 1.4fr 0.6fr;
+            gap: 48px;
+            align-items: end;
         }
 
-        @media (max-width: 900px) {
-            .hero__container {
-                grid-template-columns: 1fr;
-                gap: 48px;
-                text-align: center;
-            }
-        }
-
-        .hero__tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--font-display);
+        .hero__eyebrow {
+            font-family: var(--font-body);
             font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--accent);
+            font-weight: 500;
+            color: var(--fg-dim);
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            padding: 6px 14px;
-            border-radius: var(--radius-pill);
+            letter-spacing: 0.15em;
             margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero__eyebrow::before {
+            content: "";
+            width: 32px;
+            height: 1px;
+            background: var(--fg-muted);
         }
 
         .hero__title {
             font-family: var(--font-display);
-            font-size: clamp(2.5rem, 6.5vw, 4.8rem);
+            font-size: clamp(2.8rem, 7vw, 5.5rem);
             font-weight: 800;
-            line-height: 1.05;
+            line-height: 0.95;
             letter-spacing: -0.04em;
-            color: var(--text-primary);
-            margin-bottom: 24px;
+            text-transform: uppercase;
+            margin-bottom: 32px;
         }
 
-        .hero__title span {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .hero__title em {
+            font-family: var(--font-editorial);
+            font-style: italic;
+            text-transform: none;
+            color: var(--accent);
         }
 
         .hero__desc {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
+            font-size: 1rem;
+            color: var(--fg-dim);
             line-height: 1.7;
-            margin-bottom: 36px;
-            max-width: 580px;
-        }
-
-        @media (max-width: 900px) {
-            .hero__desc {
-                margin-left: auto;
-                margin-right: auto;
-            }
+            max-width: 520px;
+            margin-bottom: 40px;
         }
 
         .hero__actions {
             display: flex;
             gap: 16px;
-        }
-
-        @media (max-width: 900px) {
-            .hero__actions {
-                justify-content: center;
-            }
-        }
-
-        /* Abstract spinning neural SVG visual */
-        .hero__visual-container {
-            display: flex;
-            justify-content: center;
             align-items: center;
+        }
+
+        /* Brutalist Buttons */
+        .btn-primary {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 14px 28px;
+            background: var(--accent);
+            color: var(--bg);
+            border: 2px solid var(--accent);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--accent-shadow);
+        }
+
+        .btn-secondary {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 14px 28px;
+            background: transparent;
+            color: var(--fg);
+            border: 2px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--fg);
+            transform: translateY(-2px);
+        }
+
+        /* Hero right column — rotating badge */
+        .hero__aside {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 32px;
+        }
+
+        .rotating-badge {
+            width: 140px;
+            height: 140px;
             position: relative;
         }
 
-        @media (max-width: 900px) {
-            .hero__visual-container {
-                display: none;
-            }
+        .rotating-badge__text {
+            animation: spin 12s linear infinite;
         }
 
-        .hero__visual {
-            width: 320px;
-            height: 320px;
-            filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.25));
+        .rotating-badge__text text {
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            fill: var(--fg-dim);
         }
 
-        .neural-ring {
-            transform-origin: 100px 100px;
-            animation: spin-clockwise 25s linear infinite;
+        .rotating-badge__center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .neural-ring--dash {
-            transform-origin: 100px 100px;
-            animation: spin-counter-clockwise 15s linear infinite;
+        .rotating-badge__center svg {
+            width: 18px;
+            height: 18px;
         }
 
-        .neural-nodes {
-            transform-origin: 100px 100px;
-            animation: spin-clockwise 35s linear infinite;
-        }
+        [data-theme="dark"] .rotating-badge__center svg { stroke: #0c0c0c; }
+        [data-theme="light"] .rotating-badge__center svg { stroke: #f4f0e8; }
 
-        @keyframes spin-clockwise {
+        @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
 
-        @keyframes spin-counter-clockwise {
-            from { transform: rotate(360deg); }
-            to { transform: rotate(0deg); }
-        }
-
-        /* Numeric stats strip */
-        .stats-strip {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 56px;
-            border-top: 1px solid var(--border);
-            padding-top: 36px;
-        }
-
-        .stat-node {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .stat-node__val {
-            font-family: var(--font-display);
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            line-height: 1.1;
-        }
-
-        .stat-node__lbl {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 4px;
+        .hero__meta {
+            font-size: 0.75rem;
+            color: var(--fg-muted);
+            text-align: right;
+            line-height: 1.8;
             font-weight: 500;
-        }
-
-        /* ============================================
-           CAPABILITIES / SKILLS SECTION
-           ============================================ */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
         }
 
         @media (max-width: 900px) {
-            .skills-grid {
+            .hero__grid {
                 grid-template-columns: 1fr;
             }
-        }
-
-        /* SaaS Card Structure */
-        .saas-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-card);
-            padding: 36px;
-            box-shadow: var(--saas-shadow);
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .saas-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-4px);
-            box-shadow: var(--card-hover-shadow);
-        }
-
-        .saas-card__icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: rgba(99, 102, 241, 0.08);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent);
-            margin-bottom: 24px;
-        }
-
-        .saas-card__title {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 12px;
-            letter-spacing: -0.01em;
-        }
-
-        .saas-card__desc {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 28px;
-            flex-grow: 1;
-        }
-
-        /* Progress Lines */
-        .saas-gauge {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 24px;
-        }
-
-        .saas-gauge__info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        .saas-gauge__track {
-            height: 4px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .saas-gauge__fill {
-            height: 100%;
-            background: var(--gradient-primary);
-            width: 0%;
-            border-radius: 2px;
-            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .saas-card__tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .saas-tag {
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border);
-            padding: 5px 12px;
-            border-radius: var(--radius-pill);
-            transition: var(--transition);
-        }
-
-        .saas-tag:hover {
-            border-color: var(--teal);
-            color: var(--teal);
-            background: rgba(6, 182, 212, 0.05);
+            .hero__aside { 
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .hero__meta { text-align: left; }
         }
 
         /* ============================================
-           FEATURED PROJECTS SECTION
+           SCROLLING MARQUEE BANNER
+           ============================================ */
+        .marquee {
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+            overflow: hidden;
+            transition: var(--transition-theme);
+        }
+
+        .marquee__track {
+            display: flex;
+            animation: marquee-scroll 20s linear infinite;
+            width: max-content;
+        }
+
+        .marquee__content {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            white-space: nowrap;
+            flex-shrink: 0;
+            padding-right: 0;
+        }
+
+        .marquee__item {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--fg-dim);
+            padding: 0 24px;
+        }
+
+        .marquee__divider {
+            color: var(--accent);
+            font-size: 0.8rem;
+            padding: 0;
+        }
+
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ============================================
+           SECTION SYSTEM
+           ============================================ */
+        .section {
+            padding: 100px 0;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition-theme);
+        }
+
+        .section__header {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: end;
+            margin-bottom: 56px;
+            gap: 20px;
+        }
+
+        .section__index {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--fg-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .section__index::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border: 2px solid var(--accent);
+        }
+
+        .section__title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4.5vw, 3.4rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .section__title em {
+            font-family: var(--font-editorial);
+            font-style: italic;
+            text-transform: none;
+        }
+
+        .section__count {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            color: var(--fg-muted);
+            font-weight: 500;
+            text-align: right;
+        }
+
+        @media (max-width: 768px) {
+            .section__header {
+                grid-template-columns: 1fr;
+            }
+            .section__count { text-align: left; }
+        }
+
+        /* ============================================
+           CAPABILITIES — LINE-SEPARATED ROWS
+           ============================================ */
+        .capability-list {
+            list-style: none;
+        }
+
+        .capability-item {
+            display: grid;
+            grid-template-columns: 60px 1fr auto;
+            gap: 24px;
+            align-items: center;
+            padding: 28px 0;
+            border-top: 1px solid var(--border);
+            transition: background 0.3s ease;
+        }
+
+        .capability-item:last-child {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .capability-item:hover {
+            background: var(--bg-raised);
+        }
+
+        .capability-item__num {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--fg-muted);
+            transition: color 0.3s ease;
+        }
+
+        .capability-item:hover .capability-item__num {
+            color: var(--accent);
+        }
+
+        .capability-item__info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .capability-item__title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .capability-item__desc {
+            font-size: 0.88rem;
+            color: var(--fg-dim);
+            line-height: 1.5;
+        }
+
+        .capability-item__tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--fg-dim);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .capability-item__arrow {
+            font-size: 1rem;
+            color: var(--accent);
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: all 0.3s ease;
+        }
+
+        .capability-item:hover .capability-item__arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .capability-item {
+                grid-template-columns: 40px 1fr;
+                gap: 16px;
+            }
+            .capability-item__tags { display: none; }
+            .capability-item__arrow { display: none; }
+        }
+
+        /* ============================================
+           PROJECTS — CARDS WITH INDEX NUMBERS
            ============================================ */
         .projects-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 32px;
-        }
-
-        @media (max-width: 900px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
+            gap: 2px;
+            background: var(--border);
         }
 
         .project-card {
-            display: flex;
-            flex-direction: column;
+            background: var(--bg);
+            padding: 40px;
+            transition: background 0.3s ease, var(--transition-theme);
+            position: relative;
         }
 
-        .project-card__info {
-            border-top: 1px solid var(--border);
-            margin-top: 24px;
-            padding-top: 24px;
+        .project-card:hover {
+            background: var(--bg-raised);
+        }
+
+        .project-card__index {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--border);
+            line-height: 1;
+            margin-bottom: 24px;
+            transition: color 0.3s ease;
+        }
+
+        .project-card:hover .project-card__index {
+            color: var(--accent);
         }
 
         .project-card__title {
             font-family: var(--font-display);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            color: var(--text-primary);
+            letter-spacing: -0.02em;
             margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            gap: 16px;
         }
 
         .project-card__arrow {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
             border: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-secondary);
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
 
         .project-card:hover .project-card__arrow {
             border-color: var(--accent);
-            color: var(--accent);
-            background: rgba(99, 102, 241, 0.08);
-            transform: rotate(-45deg);
+            background: var(--accent);
+        }
+
+        .project-card:hover .project-card__arrow svg {
+            stroke: var(--bg);
         }
 
         .project-card__desc {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
+            font-size: 0.9rem;
+            color: var(--fg-dim);
             line-height: 1.6;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .project-card__meta {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 16px;
-            font-size: 0.8rem;
-            margin-bottom: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 0.78rem;
         }
 
         .project-card__meta-item span {
-            color: var(--text-muted);
             display: block;
+            color: var(--fg-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
             margin-bottom: 2px;
+            font-size: 0.65rem;
         }
 
         .project-card__meta-item strong {
-            color: var(--text-primary);
+            color: var(--fg);
             font-weight: 600;
         }
 
         .project-card__tags {
             display: flex;
-            gap: 8px;
-        }
-
-        /* ============================================
-           WORK HISTORY TIMELINE SECTION
-           ============================================ */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-            padding-left: 36px;
-        }
-
-        .timeline::before {
-            content: "";
-            position: absolute;
-            left: 7px;
-            top: 6px;
-            bottom: 6px;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--accent) 0%, var(--teal) 50%, rgba(255, 255, 255, 0.02) 100%);
-        }
-
-        .timeline__item {
-            position: relative;
-            padding-bottom: 48px;
-        }
-
-        .timeline__item:last-child {
-            padding-bottom: 0;
-        }
-
-        .timeline__node {
-            position: absolute;
-            left: -36px;
-            top: 6px;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: var(--bg);
-            border: 3px solid var(--accent);
-            z-index: 2;
-            transition: var(--transition);
-        }
-
-        .timeline__item:hover .timeline__node {
-            background: var(--accent);
-            box-shadow: 0 0 15px var(--accent);
-            transform: scale(1.25);
-        }
-
-        .timeline__item:nth-child(2) .timeline__node {
-            border-color: var(--teal);
-        }
-        .timeline__item:nth-child(2):hover .timeline__node {
-            background: var(--teal);
-            box-shadow: 0 0 15px var(--teal);
-        }
-
-        .timeline__header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .timeline__title {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .timeline__date {
-            font-family: var(--font-display);
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--text-muted);
-        }
-
-        .timeline__org {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 12px;
-            display: inline-block;
-        }
-
-        .timeline__item:nth-child(2) .timeline__org {
-            color: var(--teal);
-        }
-
-        .timeline__desc {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* ============================================
-           CONTACT SECTION
-           ============================================ */
-        .connect {
-            border-bottom: none;
-            padding-bottom: 120px;
-        }
-
-        .connect-box {
-            background: radial-gradient(circle at 100% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 50%), var(--card-bg-solid);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 64px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            gap: 6px;
+            margin-top: 20px;
         }
 
         @media (max-width: 768px) {
-            .connect-box {
-                padding: 40px 24px;
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .project-card { padding: 28px 20px; }
+        }
+
+        /* ============================================
+           JOURNEY TIMELINE — LINE-SEPARATED
+           ============================================ */
+        .timeline-list {
+            list-style: none;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+            gap: 40px;
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            transition: background 0.3s ease;
+        }
+
+        .timeline-item:last-child {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .timeline-item:hover {
+            background: var(--bg-raised);
+        }
+
+        .timeline-item__date {
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--fg-muted);
+            padding-top: 4px;
+        }
+
+        .timeline-item__content {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .timeline-item__title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .timeline-item__org {
+            font-family: var(--font-editorial);
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--accent);
+        }
+
+        .timeline-item__desc {
+            font-size: 0.88rem;
+            color: var(--fg-dim);
+            line-height: 1.6;
+            margin-top: 4px;
+        }
+
+        .timeline-item__arrow {
+            color: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        .timeline-item:hover .timeline-item__arrow {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
             }
         }
 
-        /* Grid lines in contact card */
-        .connect-box::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-size: 24px 24px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.008) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.008) 1px, transparent 1px);
-            z-index: 0;
-            pointer-events: none;
+        /* ============================================
+           CONNECT / CONTACT SECTION
+           ============================================ */
+        .connect {
+            padding: 120px 0;
+            border-bottom: none;
+            text-align: center;
         }
 
-        .connect-box__title {
+        .connect__eyebrow {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--fg-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 24px;
+        }
+
+        .connect__title {
             font-family: var(--font-display);
-            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-size: clamp(2.2rem, 5vw, 4rem);
             font-weight: 800;
-            color: var(--text-primary);
-            letter-spacing: -0.03em;
-            margin-bottom: 16px;
-            position: relative;
-            z-index: 1;
+            text-transform: uppercase;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 20px;
         }
 
-        .connect-box__desc {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            max-width: 500px;
-            margin: 0 auto 36px;
-            position: relative;
-            z-index: 1;
+        .connect__title em {
+            font-family: var(--font-editorial);
+            font-style: italic;
+            text-transform: none;
+            color: var(--accent);
         }
 
-        .saas-email-btn {
-            background: var(--gradient-primary);
-            color: #ffffff;
+        .connect__desc {
+            font-size: 1rem;
+            color: var(--fg-dim);
+            max-width: 460px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .email-btn {
             font-family: var(--font-display);
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-size: clamp(0.85rem, 2vw, 1.05rem);
             font-weight: 700;
-            padding: 16px 36px;
-            border-radius: var(--radius-pill);
-            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 18px 36px;
+            background: var(--accent);
+            color: var(--bg);
+            border: 2px solid var(--accent);
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            z-index: 1;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .saas-email-btn:hover {
+        .email-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 35px -5px rgba(99, 102, 241, 0.5);
+            box-shadow: 0 12px 32px var(--accent-shadow);
         }
 
-        .saas-email-btn svg {
-            width: 20px;
-            height: 20px;
+        .email-btn svg {
+            width: 18px;
+            height: 18px;
         }
 
-        .connect-box__status {
-            font-size: 0.75rem;
+        [data-theme="dark"] .email-btn svg { stroke: #0c0c0c; }
+        [data-theme="light"] .email-btn svg { stroke: #f4f0e8; }
+
+        .connect__status {
+            font-size: 0.7rem;
             font-weight: 600;
-            color: var(--text-muted);
-            margin-top: 16px;
+            color: var(--fg-muted);
+            margin-top: 14px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            display: block;
-            position: relative;
-            z-index: 1;
         }
 
-        .saas-socials {
+        .connect__socials {
             display: flex;
             justify-content: center;
-            gap: 24px;
-            margin-top: 40px;
-            position: relative;
-            z-index: 1;
+            gap: 32px;
+            margin-top: 48px;
         }
 
-        .saas-socials a {
-            font-size: 0.85rem;
+        .connect__socials a {
+            font-size: 0.8rem;
             font-weight: 600;
-            color: var(--text-secondary);
-            transition: var(--transition);
-            border-bottom: 1px solid transparent;
-            padding-bottom: 2px;
+            color: var(--fg-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            transition: color 0.3s ease;
+            position: relative;
         }
 
-        .saas-socials a:hover {
-            color: var(--text-primary);
-            border-bottom-color: var(--text-primary);
+        .connect__socials a::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .connect__socials a:hover {
+            color: var(--fg);
+        }
+
+        .connect__socials a:hover::after {
+            width: 100%;
         }
 
         /* ============================================
            FOOTER
            ============================================ */
         .footer {
-            padding: 40px 0;
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--border);
+            font-size: 0.75rem;
+            color: var(--fg-muted);
+            transition: var(--transition-theme);
         }
+
+        .footer a {
+            color: var(--fg-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover { color: var(--fg); }
 
         @media (max-width: 640px) {
             .footer {
                 flex-direction: column;
-                gap: 16px;
+                gap: 12px;
                 text-align: center;
             }
         }
 
-        .footer__top {
-            font-weight: 600;
-            color: var(--text-secondary);
-            transition: var(--transition);
-        }
-
-        .footer__top:hover {
-            color: var(--text-primary);
-        }
-
-        /* Semantic Accessible Copy */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
+        /* ============================================
+           SCROLL REVEAL BASE
+           ============================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
         }
 
         /* ============================================
@@ -905,362 +969,322 @@
                 transition-duration: 0.01ms !important;
                 scroll-behavior: auto !important;
             }
-            .hero-visual {
-                animation: none !important;
-            }
-            .neural-ring, .neural-ring--dash, .neural-nodes {
-                animation: none !important;
-            }
+            .cursor { display: none; }
+            body, a, button { cursor: auto; }
+            .reveal { opacity: 1; transform: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Semantic Hidden Layer for Screen Readers -->
+    <!-- Screen reader content -->
     <section class="sr-only">
-        <h1>Rohan Reddy — AI Analyst &amp; Prompt Engineer</h1>
-        <p>Professional portfolio of Rohan Reddy, evaluating and optimizing AI outputs to bridge the gap between raw data and actionable human insights. Expert in prompt engineering, LLM testing, and database reporting.</p>
-        <h2>Experience History</h2>
-        <ul>
-            <li>Machine Learning Intern at Cognibot (2024): Behaviors evaluation, validation of AI output profiles.</li>
-            <li>AI Intern at Corizo (2023): AI tooling workflows, trend analysis, visualization reports.</li>
-            <li>B.E. CSE (AI) from Sathyabama Institute of Science and Technology (2020-2024)</li>
-        </ul>
+        <h1>Rohan Reddy — AI Analyst & Prompt Engineer</h1>
+        <p>Professional portfolio of Rohan Reddy, evaluating and optimizing AI outputs to bridge the gap between raw data and actionable human insights.</p>
     </section>
 
-    <!-- Grid overlays & ambient lighting -->
-    <div class="grid-matrix" aria-hidden="true"></div>
-    <div class="ambient-light" aria-hidden="true"></div>
-    <div class="ambient-light--2" aria-hidden="true"></div>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor" aria-hidden="true"></div>
 
-    <!-- ========== HEADER NAVIGATION ========== -->
+    <!-- ========== HEADER ========== -->
     <header class="header" role="banner">
-        <a href="#" class=" Saas header__logo" aria-label="Rohan Reddy — Home">
-            Rohan<span>.</span>Reddy
-        </a>
-
-        <ul class="header__nav" role="navigation" aria-label="Main Navigation">
-            <li><a href="#capabilities">Capabilities</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#journey">Journey</a></li>
-        </ul>
-
-        <div>
-            <a href="#contact" class="saas-btn">Connect</a>
+        <div class="container">
+            <div class="header__inner">
+                <a href="#" class="header__logo" aria-label="Rohan Reddy — Home">Rohan Reddy</a>
+                <ul class="header__nav" role="navigation" aria-label="Main Navigation">
+                    <li><a href="#capabilities">Capabilities</a></li>
+                    <li><a href="#projects">Work</a></li>
+                    <li><a href="#journey">Journey</a></li>
+                    <li><a href="#contact">Connect</a></li>
+                </ul>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle color theme" title="Switch theme"></button>
+            </div>
         </div>
     </header>
 
     <!-- ========== HERO ========== -->
-    <section class="hero" aria-label="Overview Introduction">
+    <section class="hero" aria-label="Introduction">
         <div class="container">
-            <div class="saas-reveal hero__container">
+            <div class="hero__grid">
                 <div class="hero__content">
-                    <div class="hero__tag">AI Analyst &amp; Prompt Engineer</div>
-                    <h1 class="hero__title">
-                        Evaluating and optimizing AI to bridge the gap to <span>human intent</span>.
-                    </h1>
-                    <p class="hero__desc">
+                    <div class="hero__eyebrow reveal">AI Analyst & Prompt Engineer</div>
+                    <h2 class="hero__title reveal">
+                        Bridging<br>
+                        raw data<br>
+                        to <em>human</em><br>
+                        intent.
+                    </h2>
+                    <p class="hero__desc reveal">
                         B.E. Computer Science graduate specialized in prompt engineering, LLM performance auditing, safety compliance, and SQL analytics.
                     </p>
-                    <div class="hero__actions">
-                        <a href="#contact" class="saas-btn">Get in touch</a>
-                        <a href="./Rohan-Reddy-Resume.pdf" target="_blank" rel="noopener noreferrer" class="saas-btn saas-btn--secondary">Download Resume</a>
+                    <div class="hero__actions reveal">
+                        <a href="#contact" class="btn-primary">Get in touch</a>
+                        <a href="./Rohan-Reddy-Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-secondary">Resume ↗</a>
                     </div>
                 </div>
 
-                <div class="hero__visual-container">
-                    <svg class="hero__visual" viewBox="0 0 200 200" aria-hidden="true">
-                        <!-- spinning rings -->
-                        <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(99, 102, 241, 0.08)" stroke-width="1.5"></circle>
-                        <circle class="neural-ring" cx="100" cy="100" r="75" fill="none" stroke="rgba(99, 102, 241, 0.12)" stroke-width="1" stroke-dasharray="12 6"></circle>
-                        <circle class="neural-ring--dash" cx="100" cy="100" r="55" fill="none" stroke="rgba(6, 182, 212, 0.15)" stroke-width="1" stroke-dasharray="6 3"></circle>
-                        <!-- interconnecting neural mesh -->
-                        <g class="neural-nodes">
-                            <!-- lines -->
-                            <line x1="65" y1="65" x2="100" y2="45" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1"></line>
-                            <line x1="100" y1="45" x2="135" y2="65" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1"></line>
-                            <line x1="135" y1="65" x2="135" y2="135" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1"></line>
-                            <line x1="135" y1="135" x2="100" y2="155" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1"></line>
-                            <line x1="100" y1="155" x2="65" y2="135" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1"></line>
-                            <line x1="65" y1="135" x2="65" y2="65" stroke="rgba(6, 182, 212, 0.25)" stroke-width="1"></line>
-                            <line x1="65" y1="65" x2="100" y2="100" stroke="rgba(99, 102, 241, 0.2)" stroke-width="1"></line>
-                            <line x1="100" y1="45" x2="100" y2="100" stroke="rgba(99, 102, 241, 0.2)" stroke-width="1"></line>
-                            <line x1="135" y1="65" x2="100" y2="100" stroke="rgba(99, 102, 241, 0.2)" stroke-width="1"></line>
-                            <line x1="135" y1="135" x2="100" y2="100" stroke="rgba(99, 102, 241, 0.2)" stroke-width="1"></line>
-                            <line x1="100" y1="155" x2="100" y2="100" stroke="rgba(99, 102, 241, 0.2)" stroke-width="1"></line>
-                            <line x1="65" y1="135" x2="100" y2="100" stroke="rgba(99, 102, 241, 0.2)" stroke-width="1"></line>
-                            <!-- nodes -->
-                            <circle cx="100" cy="100" r="5" fill="#6366f1"></circle>
-                            <circle cx="65" cy="65" r="4.5" fill="#06b6d4"></circle>
-                            <circle cx="100" cy="45" r="4.5" fill="#06b6d4"></circle>
-                            <circle cx="135" cy="65" r="4.5" fill="#06b6d4"></circle>
-                            <circle cx="135" cy="135" r="4.5" fill="#06b6d4"></circle>
-                            <circle cx="100" cy="155" r="4.5" fill="#06b6d4"></circle>
-                            <circle cx="65" cy="135" r="4.5" fill="#06b6d4"></circle>
-                        </g>
-                    </svg>
-                </div>
-            </div>
+                <div class="hero__aside reveal">
+                    <!-- Rotating Badge -->
+                    <div class="rotating-badge" aria-hidden="true">
+                        <svg viewBox="0 0 140 140" class="rotating-badge__text">
+                            <defs>
+                                <path id="circlePath" d="M 70,70 m -55,0 a 55,55 0 1,1 110,0 a 55,55 0 1,1 -110,0"/>
+                            </defs>
+                            <text>
+                                <textPath href="#circlePath">AVAILABLE FOR WORK ◆ OPEN TO PROJECTS ◆ </textPath>
+                            </text>
+                        </svg>
+                        <div class="rotating-badge__center">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </div>
+                    </div>
 
-            <!-- Stats strip -->
-            <div class="saas-reveal stats-strip">
-                <div class="stat-node">
-                    <span class="stat-node__val">B.E.</span>
-                    <span class="stat-node__lbl">CSE (AI) Degree</span>
-                </div>
-                <div class="stat-node">
-                    <span class="stat-node__val">2+</span>
-                    <span class="stat-node__lbl">Internship Placements</span>
-                </div>
-                <div class="stat-node">
-                    <span class="stat-node__val">3+</span>
-                    <span class="stat-node__lbl">Professional Credentials</span>
+                    <div class="hero__meta">
+                        Based in India<br>
+                        B.E. CSE (AI)<br>
+                        2024 Graduate
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ========== CAPABILITIES ========== -->
-    <section id="capabilities" class="section" aria-label="Technical skills index">
-        <div class="container">
-            <span class="section-tag">Competency Matrix</span>
-            <h3 class="section-title">Technical <span>Capabilities</span></h3>
-            
-            <div class="saas-reveal skills-grid">
-                
-                <!-- Card 1: AI Evaluation -->
-                <div class="saas-card">
-                    <div class="saas-card__icon" aria-hidden="true">
-                        <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                    </div>
-                    <h4 class="saas-card__title">AI Analysis</h4>
-                    <p class="saas-card__desc">
-                        Designing prompt workflows and evaluating model outputs for safety, drift, bias, and context alignment parameters.
-                    </p>
-                    <div class="saas-gauge">
-                        <div class="saas-gauge__info">
-                            <span>LLM BENCHMARKS</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="saas-gauge__track">
-                            <div class="saas-gauge__fill" data-percent="90%"></div>
-                        </div>
-                    </div>
-                    <div class="saas-card__tags">
-                        <span class="saas-tag">Prompting</span>
-                        <span class="saas-tag">ChatGPT</span>
-                        <span class="saas-tag">Safety QA</span>
-                    </div>
-                </div>
-
-                <!-- Card 2: Data Analytics -->
-                <div class="saas-card">
-                    <div class="saas-card__icon" aria-hidden="true">
-                        <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-                    </div>
-                    <h4 class="saas-card__title">Data Analytics</h4>
-                    <p class="saas-card__desc">
-                        Aggregating databases, conducting SQL audits, and engineering reports detailing trends and operational insights.
-                    </p>
-                    <div class="saas-gauge">
-                        <div class="saas-gauge__info">
-                            <span>SQL &amp; REPORTING</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="saas-gauge__track">
-                            <div class="saas-gauge__fill" data-percent="85%"></div>
-                        </div>
-                    </div>
-                    <div class="saas-card__tags">
-                        <span class="saas-tag">SQL</span>
-                        <span class="saas-tag">Excel</span>
-                        <span class="saas-tag">Dashboards</span>
-                    </div>
-                </div>
-
-                <!-- Card 3: System Execution -->
-                <div class="saas-card">
-                    <div class="saas-card__icon" aria-hidden="true">
-                        <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    </div>
-                    <h4 class="saas-card__title">Execution</h4>
-                    <p class="saas-card__desc">
-                        Deploying solutions rapidly into agile sprints and drafting detailed technical specifications/documentation.
-                    </p>
-                    <div class="saas-gauge">
-                        <div class="saas-gauge__info">
-                            <span>TECHNICAL DOCUMENTATION</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="saas-gauge__track">
-                            <div class="saas-gauge__fill" data-percent="80%"></div>
-                        </div>
-                    </div>
-                    <div class="saas-card__tags">
-                        <span class="saas-tag">Agile Sprints</span>
-                        <span class="saas-tag">QA Logs</span>
-                        <span class="saas-tag">Specs</span>
-                    </div>
-                </div>
-
+    <!-- ========== MARQUEE ========== -->
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+            <div class="marquee__content">
+                <span class="marquee__item">Prompt Engineering</span>
+                <span class="marquee__divider">◆</span>
+                <span class="marquee__item">LLM Evaluation</span>
+                <span class="marquee__divider">◆</span>
+                <span class="marquee__item">Safety Guardrails</span>
+                <span class="marquee__divider">◆</span>
+                <span class="marquee__item">Data Analytics</span>
+                <span class="marquee__divider">◆</span>
+                <span class="marquee__item">SQL Auditing</span>
+                <span class="marquee__divider">◆</span>
+                <span class="marquee__item">AI Testing</span>
+                <span class="marquee__divider">◆</span>
+                <span class="marquee__item">Model Benchmarking</span>
+                <span class="marquee__divider">◆</span>
+                <span class="marquee__item">Technical Documentation</span>
+                <span class="marquee__divider">◆</span>
             </div>
+            <div class="marquee__content">
+                <span class="marquee__item">Prompt Engineering</span>
+                <span class="marquee__divider">◆</span>
+                <span class="marquee__item">LLM Evaluation</span>
+                <span class="marquee__divider">◆</span>
+                <span class="marquee__item">Safety Guardrails</span>
+                <span class="marquee__divider">◆</span>
+                <span class="marquee__item">Data Analytics</span>
+                <span class="marquee__divider">◆</span>
+                <span class="marquee__item">SQL Auditing</span>
+                <span class="marquee__divider">◆</span>
+                <span class="marquee__item">AI Testing</span>
+                <span class="marquee__divider">◆</span>
+                <span class="marquee__item">Model Benchmarking</span>
+                <span class="marquee__divider">◆</span>
+                <span class="marquee__item">Technical Documentation</span>
+                <span class="marquee__divider">◆</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== CAPABILITIES ========== -->
+    <section id="capabilities" class="section" aria-label="Skills and capabilities">
+        <div class="container">
+            <div class="section__header reveal">
+                <div>
+                    <div class="section__index">01 — Expertise</div>
+                    <h3 class="section__title">Core<br><em>Capabilities</em></h3>
+                </div>
+                <div class="section__count">3 Disciplines</div>
+            </div>
+
+            <ul class="capability-list">
+                <li class="capability-item reveal">
+                    <span class="capability-item__num">01</span>
+                    <div class="capability-item__info">
+                        <h4 class="capability-item__title">AI Analysis & Evaluation</h4>
+                        <p class="capability-item__desc">Designing prompt workflows and evaluating model outputs for safety, drift, bias, and context alignment parameters.</p>
+                    </div>
+                    <div class="capability-item__tags">
+                        <span class="tag">Prompting</span>
+                        <span class="tag">ChatGPT</span>
+                        <span class="tag">Safety QA</span>
+                    </div>
+                </li>
+                <li class="capability-item reveal">
+                    <span class="capability-item__num">02</span>
+                    <div class="capability-item__info">
+                        <h4 class="capability-item__title">Data Analytics & Reporting</h4>
+                        <p class="capability-item__desc">Aggregating databases, conducting SQL audits, and engineering reports detailing trends and operational insights.</p>
+                    </div>
+                    <div class="capability-item__tags">
+                        <span class="tag">SQL</span>
+                        <span class="tag">Excel</span>
+                        <span class="tag">Dashboards</span>
+                    </div>
+                </li>
+                <li class="capability-item reveal">
+                    <span class="capability-item__num">03</span>
+                    <div class="capability-item__info">
+                        <h4 class="capability-item__title">Technical Execution</h4>
+                        <p class="capability-item__desc">Deploying solutions rapidly into agile sprints and drafting detailed technical specifications and documentation.</p>
+                    </div>
+                    <div class="capability-item__tags">
+                        <span class="tag">Agile</span>
+                        <span class="tag">QA Logs</span>
+                        <span class="tag">Specs</span>
+                    </div>
+                </li>
+            </ul>
         </div>
     </section>
 
     <!-- ========== PROJECTS ========== -->
-    <section id="projects" class="Saas section" aria-label="Featured work projects">
+    <section id="projects" class="section" aria-label="Featured projects">
         <div class="container">
-            <span class="section-tag">Case Studies</span>
-            <h3 class="section-title">Featured <span>Work</span></h3>
-            
-            <div class="saas-reveal projects-grid">
-                
-                <!-- Project Card 1 -->
+            <div class="section__header reveal">
+                <div>
+                    <div class="section__index">02 — Portfolio</div>
+                    <h3 class="section__title">Selected<br><em>Work</em></h3>
+                </div>
+                <div class="section__count">2 Case Studies</div>
+            </div>
+
+            <div class="projects-grid reveal">
                 <article class="project-card">
-                    <h4 class="sr-only">Generative AI Tool Evaluation</h4>
-                    <div class="saas-card" style="padding: 0; overflow: hidden; border: none; background: transparent;">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='340' viewBox='0 0 600 340'%3E%3Crect width='100%25' height='100%25' fill='%23111827'/%3E%3Ccircle cx='300' cy='170' r='80' fill='none' stroke='%236366f1' stroke-width='1.5' stroke-dasharray='10 5'/%3E%3Cpath d='M260 170 L340 170 M300 130 L300 210' stroke='%2306b6d4' stroke-width='1.5'/%3E%3Ctext x='50%25' y='85%25' fill='%2394a3b8' font-family='sans-serif' font-size='14' text-anchor='middle'%3ELLM Output Regression Suite%3C/text%3E%3C/svg%3E" alt="Visual representation of Generative AI Evaluation suite" style="width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--border);" loading="lazy">
+                    <div class="project-card__index">01</div>
+                    <div class="project-card__title">
+                        Generative AI Tool Evaluation
+                        <a href="#contact" class="project-card__arrow" aria-label="View project details">
+                            <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                        </a>
                     </div>
-                    <div class="project-card__info">
-                        <div class="project-card__title">
-                            Generative AI Tool Evaluation
-                            <a href="#contact" class="project-card__arrow" aria-label="Request case study access">
-                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                            </a>
+                    <p class="project-card__desc">
+                        Audited model responses for output consistency, safety guardrails, prompt vulnerability leaks, and contextual drift metrics.
+                    </p>
+                    <div class="project-card__meta">
+                        <div class="project-card__meta-item">
+                            <span>Scope</span>
+                            <strong>Safety QA Logs</strong>
                         </div>
-                        <p class="project-card__desc">
-                            Audited model responses for output consistency, safety guardrails, prompt vulnerability leaks, and contextual drift metrics.
-                        </p>
-                        <div class="project-card__meta">
-                            <div class="project-card__meta-item">
-                                <span>SCOPE</span>
-                                <strong>Safety QA Logs</strong>
-                            </div>
-                            <div class="project-card__meta-item">
-                                <span>ROLE</span>
-                                <strong>AI Tester</strong>
-                            </div>
+                        <div class="project-card__meta-item">
+                            <span>Role</span>
+                            <strong>AI Tester</strong>
                         </div>
-                        <div class="project-card__tags">
-                            <span class="saas-tag">LLM QA</span>
-                            <span class="saas-tag">Bias Auditing</span>
-                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag">LLM QA</span>
+                        <span class="tag">Bias Auditing</span>
                     </div>
                 </article>
 
-                <!-- Project Card 2 -->
                 <article class="project-card">
-                    <h4 class="sr-only">Market Intelligence Analysis</h4>
-                    <div class="saas-card" style="padding: 0; overflow: hidden; border: none; background: transparent;">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='340' viewBox='0 0 600 340'%3E%3Crect width='100%25' height='100%25' fill='%23111827'/%3E%3Crect x='150' y='100' width='300' height='140' rx='8' fill='none' stroke='%2306b6d4' stroke-width='1.5'/%3E%3Cpath d='M200 200 L250 150 L300 180 L400 120' fill='none' stroke='%236366f1' stroke-width='2'/%3E%3Ctext x='50%25' y='85%25' fill='%2394a3b8' font-family='sans-serif' font-size='14' text-anchor='middle'%3EAutomated Summarization Model%3C/text%3E%3C/svg%3E" alt="Visual representation of Market Intelligence Analysis graph" style="width: 100%; height: auto; border-radius: var(--radius-card); border: 1px solid var(--border);" loading="lazy">
+                    <div class="project-card__index">02</div>
+                    <div class="project-card__title">
+                        Market Intelligence Analysis
+                        <a href="#contact" class="project-card__arrow" aria-label="View project details">
+                            <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                        </a>
                     </div>
-                    <div class="project-card__info">
-                        <div class="project-card__title">
-                            Market Intelligence Analysis
-                            <a href="#contact" class="project-card__arrow" aria-label="Request case study access">
-                                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                            </a>
+                    <p class="project-card__desc">
+                        Aggregated consumer query datasets and built automated summarization engines mapping key market trend shifts.
+                    </p>
+                    <div class="project-card__meta">
+                        <div class="project-card__meta-item">
+                            <span>Scope</span>
+                            <strong>Data Synthesis</strong>
                         </div>
-                        <p class="project-card__desc">
-                            Aggregated consumer query datasets and built automated summarization engines mapping key market trend shifts.
-                        </p>
-                        <div class="project-card__meta">
-                            <div class="project-card__meta-item">
-                                <span>SCOPE</span>
-                                <strong>Data Synthesis</strong>
-                            </div>
-                            <div class="project-card__meta-item">
-                                <span>ROLE</span>
-                                <strong>Analyst</strong>
-                            </div>
+                        <div class="project-card__meta-item">
+                            <span>Role</span>
+                            <strong>Analyst</strong>
                         </div>
-                        <div class="project-card__tags">
-                            <span class="saas-tag">SQL</span>
-                            <span class="saas-tag">Excel Dashboard</span>
-                        </div>
+                    </div>
+                    <div class="project-card__tags">
+                        <span class="tag">SQL</span>
+                        <span class="tag">Excel Dashboard</span>
                     </div>
                 </article>
-
             </div>
         </div>
     </section>
 
-    <!-- ========== JOURNEY TIMELINE ========== -->
-    <section id="journey" class="section" aria-label="Education and timeline logs">
+    <!-- ========== JOURNEY ========== -->
+    <section id="journey" class="section" aria-label="Career timeline">
         <div class="container">
-            <span class="section-tag">Career Trail</span>
-            <h3 class="section-title">Experience &amp; <span>Milestones</span></h3>
-            
-            <div class="saas-reveal timeline">
-                
-                <div class="timeline__item">
-                    <div class="timeline__node"></div>
-                    <div class="timeline__header">
-                        <h4 class="timeline__title">Machine Learning Intern</h4>
-                        <span class="timeline__date">2024.01 — 2024.04</span>
-                    </div>
-                    <span class="timeline__org">Cognibot</span>
-                    <p class="timeline__desc">
-                        Conducted behavior audits on machine learning systems, validated outputs for safety parameters, and logged model regressions.
-                    </p>
+            <div class="section__header reveal">
+                <div>
+                    <div class="section__index">03 — Timeline</div>
+                    <h3 class="section__title">The<br><em>Journey</em></h3>
                 </div>
-
-                <div class="timeline__item">
-                    <div class="timeline__node"></div>
-                    <div class="timeline__header">
-                        <h4 class="timeline__title">AI Intern</h4>
-                        <span class="timeline__date">2023.05 — 2023.08</span>
-                    </div>
-                    <span class="timeline__org">Corizo</span>
-                    <p class="timeline__desc">
-                        Engineered prompting directives, verified AI workflows, and set up client reporting dashboards.
-                    </p>
-                </div>
-
-                <div class="timeline__item">
-                    <div class="timeline__node"></div>
-                    <div class="timeline__header">
-                        <h4 class="timeline__title">Cloud Infrastructure Certified Foundations</h4>
-                        <span class="timeline__date">2023.03</span>
-                    </div>
-                    <span class="timeline__org">Oracle</span>
-                    <p class="timeline__desc">
-                        Certified associate validating tenancy structures, cloud networking, and storage provisioning competencies.
-                    </p>
-                </div>
-
-                <div class="timeline__item">
-                    <div class="timeline__node"></div>
-                    <div class="timeline__header">
-                        <h4 class="timeline__title">B.E. Computer Science &amp; Engineering (AI)</h4>
-                        <span class="timeline__date">2020.08 — 2024.05</span>
-                    </div>
-                    <span class="timeline__org">Sathyabama Institute of Science and Technology</span>
-                    <p class="timeline__desc">
-                        Studied data systems, neural networks, machine learning architectures, and concentrated database structures.
-                    </p>
-                </div>
-
+                <div class="section__count">4 Milestones</div>
             </div>
+
+            <ul class="timeline-list">
+                <li class="timeline-item reveal">
+                    <div class="timeline-item__date">Jan — Apr 2024</div>
+                    <div class="timeline-item__content">
+                        <h4 class="timeline-item__title">Machine Learning Intern</h4>
+                        <span class="timeline-item__org">Cognibot</span>
+                        <p class="timeline-item__desc">Conducted behavior audits on machine learning systems, validated outputs for safety parameters, and logged model regressions.</p>
+                        <span class="timeline-item__arrow">→</span>
+                    </div>
+                </li>
+                <li class="timeline-item reveal">
+                    <div class="timeline-item__date">May — Aug 2023</div>
+                    <div class="timeline-item__content">
+                        <h4 class="timeline-item__title">AI Intern</h4>
+                        <span class="timeline-item__org">Corizo</span>
+                        <p class="timeline-item__desc">Engineered prompting directives, verified AI workflows, and set up client reporting dashboards.</p>
+                        <span class="timeline-item__arrow">→</span>
+                    </div>
+                </li>
+                <li class="timeline-item reveal">
+                    <div class="timeline-item__date">Mar 2023</div>
+                    <div class="timeline-item__content">
+                        <h4 class="timeline-item__title">Cloud Infrastructure Certified Foundations</h4>
+                        <span class="timeline-item__org">Oracle</span>
+                        <p class="timeline-item__desc">Certified associate validating tenancy structures, cloud networking, and storage provisioning competencies.</p>
+                        <span class="timeline-item__arrow">→</span>
+                    </div>
+                </li>
+                <li class="timeline-item reveal">
+                    <div class="timeline-item__date">2020 — 2024</div>
+                    <div class="timeline-item__content">
+                        <h4 class="timeline-item__title">B.E. Computer Science & Engineering (AI)</h4>
+                        <span class="timeline-item__org">Sathyabama Institute of Science and Technology</span>
+                        <p class="timeline-item__desc">Studied data systems, neural networks, machine learning architectures, and concentrated database structures.</p>
+                        <span class="timeline-item__arrow">→</span>
+                    </div>
+                </li>
+            </ul>
         </div>
     </section>
 
     <!-- ========== CONNECT ========== -->
-    <section id="contact" class="section connect" aria-label="Initiate connection card">
+    <section id="contact" class="section connect" aria-label="Contact">
         <div class="container">
-            <div class="saas-reveal connect-box">
-                <h3 class="connect-box__title">Start a project</h3>
-                <p class="connect-box__desc">
+            <div class="reveal">
+                <div class="connect__eyebrow">04 — Let's Talk</div>
+                <h3 class="connect__title">Start a<br><em>project</em></h3>
+                <p class="connect__desc">
                     Ready to refine your system prompts, audit output safety, or extract database trends? Let's talk.
                 </p>
-                
-                <button class="saas-email-btn" id="email-copy-trigger" aria-label="Copy email address to clipboard">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+
+                <button class="email-btn" id="email-copy-trigger" aria-label="Copy email address to clipboard">
+                    <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
                     rohanyeruva2003@gmail.com
                 </button>
-                <span class="connect-box__status" id="email-copy-status">Click to copy email</span>
+                <div class="connect__status" id="email-copy-status">Click to copy email</div>
 
-                <div class="saas-socials">
+                <div class="connect__socials">
                     <a href="https://www.linkedin.com/in/rohanyeruva/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                     <a href="https://github.com/reddyrohan2003" target="_blank" rel="noopener noreferrer">GitHub</a>
                 </div>
@@ -1272,101 +1296,113 @@
     <footer role="contentinfo">
         <div class="container">
             <div class="footer">
-                <div>&copy; 2026 Rohan Reddy. All rights reserved.</div>
-                <a href="#" class="footer__top" aria-label="Scroll to top of page">Back to top &uarr;</a>
+                <div>© 2026 Rohan Reddy</div>
+                <a href="#" aria-label="Scroll to top">Back to top ↑</a>
             </div>
         </div>
     </footer>
 
-    <!-- ========== INTERACTION CONTROL SCRIPTS ========== -->
+    <!-- ========== SCRIPTS ========== -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // --- Click-to-Copy Email Gateway ---
+            // --- Custom Cursor ---
+            const cursor = document.getElementById('cursor');
+            if (cursor && window.innerWidth > 768) {
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                });
+
+                const hoverTargets = document.querySelectorAll('a, button, .capability-item, .project-card, .tag');
+                hoverTargets.forEach(el => {
+                    el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
+                    el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
+                });
+            }
+
+            // --- Theme Toggle ---
+            const toggle = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+
+            // Restore saved theme
+            const savedTheme = localStorage.getItem('portfolio-theme');
+            if (savedTheme) {
+                html.setAttribute('data-theme', savedTheme);
+            }
+
+            if (toggle) {
+                toggle.addEventListener('click', () => {
+                    const current = html.getAttribute('data-theme');
+                    const next = current === 'dark' ? 'light' : 'dark';
+                    html.setAttribute('data-theme', next);
+                    localStorage.setItem('portfolio-theme', next);
+                });
+            }
+
+            // --- Click-to-Copy Email ---
             const copyBtn = document.getElementById('email-copy-trigger');
             const copyStatus = document.getElementById('email-copy-status');
 
             if (copyBtn && copyStatus) {
                 copyBtn.addEventListener('click', () => {
-                    const emailText = copyBtn.textContent.trim();
-                    navigator.clipboard.writeText(emailText)
+                    navigator.clipboard.writeText('rohanyeruva2003@gmail.com')
                         .then(() => {
                             copyStatus.textContent = 'COPIED TO CLIPBOARD!';
-                            copyStatus.style.color = 'var(--teal)';
+                            copyStatus.style.color = 'var(--accent)';
                             setTimeout(() => {
                                 copyStatus.textContent = 'Click to copy email';
                                 copyStatus.style.color = '';
                             }, 2000);
                         })
-                        .catch(err => {
-                            console.error('Failed to copy: ', err);
-                        });
+                        .catch(err => console.error('Failed to copy:', err));
                 });
             }
 
-            // --- Scroll Reveals using GSAP ---
+            // --- GSAP Scroll Reveals ---
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                 gsap.registerPlugin(ScrollTrigger);
 
-                // Entrance stagger for Hero elements
-                gsap.fromTo('.hero__content > *, .hero__visual-container', 
+                // Hero entrance sequence
+                const heroElements = document.querySelectorAll('.hero .reveal');
+                gsap.fromTo(heroElements,
                     { opacity: 0, y: 30 },
-                    { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out' }
+                    { opacity: 1, y: 0, duration: 0.9, stagger: 0.12, ease: 'power3.out', delay: 0.2 }
                 );
 
-                // Staggered reveals for cards
-                gsap.utils.toArray('.saas-reveal').forEach(el => {
-                    gsap.fromTo(el, 
-                        { opacity: 0, y: 40 },
+                // All other reveals
+                gsap.utils.toArray('.reveal').forEach(el => {
+                    if (el.closest('.hero')) return; // skip hero (already handled)
+                    gsap.fromTo(el,
+                        { opacity: 0, y: 24 },
                         {
                             opacity: 1,
                             y: 0,
-                            duration: 0.8,
+                            duration: 0.7,
                             ease: 'power3.out',
                             scrollTrigger: {
                                 trigger: el,
-                                start: 'top 85%',
+                                start: 'top 88%',
                                 toggleActions: 'play none none reverse'
                             }
                         }
                     );
                 });
 
-                // Trigger skill progress bar fill on scroll
-                const skillFills = document.querySelectorAll('.saas-gauge__fill');
-                skillFills.forEach(fill => {
-                    const pct = fill.getAttribute('data-percent');
-                    ScrollTrigger.create({
-                        trigger: fill,
-                        start: 'top 90%',
-                        onEnter: () => {
-                            fill.style.width = pct;
-                        }
-                    });
-                });
-
             } else {
-                // Fallback intersection observer reveals
-                const reveals = document.querySelectorAll('.saas-reveal');
+                // Fallback: IntersectionObserver
+                const reveals = document.querySelectorAll('.reveal');
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             entry.target.style.opacity = '1';
                             entry.target.style.transform = 'translateY(0)';
-                            
-                            // fill gauges
-                            const fills = entry.target.querySelectorAll('.saas-gauge__fill');
-                            fills.forEach(fill => {
-                                fill.style.width = fill.getAttribute('data-percent');
-                            });
                         }
                     });
                 }, { threshold: 0.05 });
 
                 reveals.forEach(rev => {
-                    rev.style.opacity = '0';
-                    rev.style.transform = 'translateY(40px)';
-                    rev.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+                    rev.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
                     observer.observe(rev);
                 });
             }
