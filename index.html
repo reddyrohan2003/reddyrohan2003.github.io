@@ -1298,6 +1298,9 @@
             <!-- Right Column -->
             <div class="modal-form-wrapper">
                 <form class="modal-form" id="contact-form">
+                    <input type="hidden" name="access_key" value="2af9876f-c19c-43e5-a332-319979607301">
+                    <input type="hidden" name="subject" value="New Portfolio Inquiry">
+                    <input type="hidden" name="from_name" value="Portfolio Contact Form">
                     <div>
                         <label for="name">Full Name *</label>
                         <input type="text" id="name" name="name" required placeholder="Jane Doe">
@@ -1830,21 +1833,54 @@
                     }
                 });
 
-                // Form Submit Dummy Handler
+                // Web3Forms Submit Handler
                 const contactForm = document.getElementById('contact-form');
                 if (contactForm) {
                     contactForm.addEventListener('submit', (e) => {
                         e.preventDefault();
                         const btn = contactForm.querySelector('.modal-form__btn');
                         const originalText = btn.textContent;
-                        btn.textContent = 'Message Sent!';
-                        btn.style.background = 'var(--accent)';
-                        setTimeout(() => {
-                            btn.textContent = originalText;
-                            btn.style.background = '';
-                            closeModal();
-                            contactForm.reset();
-                        }, 2000);
+                        
+                        btn.textContent = 'Sending...';
+                        
+                        const formData = new FormData(contactForm);
+                        const object = Object.fromEntries(formData);
+                        const json = JSON.stringify(object);
+
+                        fetch('https://api.web3forms.com/submit', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: json
+                        })
+                        .then(async (response) => {
+                            let json = await response.json();
+                            if (response.status == 200) {
+                                btn.textContent = 'Message Sent!';
+                                btn.style.background = 'var(--accent)';
+                                setTimeout(() => {
+                                    btn.textContent = originalText;
+                                    btn.style.background = '';
+                                    closeModal();
+                                    contactForm.reset();
+                                }, 2000);
+                            } else {
+                                console.log(response);
+                                btn.textContent = 'Error. Try again.';
+                                setTimeout(() => {
+                                    btn.textContent = originalText;
+                                }, 3000);
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            btn.textContent = 'Error. Try again.';
+                            setTimeout(() => {
+                                btn.textContent = originalText;
+                            }, 3000);
+                        });
                     });
                 }
                 
